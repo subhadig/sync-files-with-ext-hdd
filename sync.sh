@@ -23,9 +23,11 @@
 # SOFTWARE.
 
 declare -A synced_dirs
-synced_dirs["/home/${USER}/Documents"]="backup_laptop/Documents"
-synced_dirs["/home/${USER}/Notebooks"]="backup_laptop/Notebooks"
-synced_dirs["/home/${USER}/Music"]="backup_laptop/Music"
+synced_dirs["/home/${USER}/Documents"]="backup_laptop"
+synced_dirs["/home/${USER}/Notebooks"]="backup_laptop"
+synced_dirs["/home/${USER}/Music"]="backup_laptop"
+synced_dirs["/home/${USER}/Pictures"]="backup_laptop"
+synced_dirs["/home/${USER}/Videos"]="backup_laptop"
 
 device_label='TOSHIBA EXT'
 mount_path="/media/${USER}/ext_hdd"
@@ -58,6 +60,11 @@ then
     echo "$choice"
     echo Exiting.
     exit 1
+fi
+if test ! -d ${mount_path}
+then
+    echo Path ${mount_path} does not exists. Creating.
+    sudo mkdir -p ${mount_path}
 fi
 sudo mount -t ntfs ${device_path} ${mount_path}
 
